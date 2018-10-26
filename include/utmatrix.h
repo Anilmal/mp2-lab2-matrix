@@ -62,16 +62,20 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
-	if (s > 0 && s<MAX_VECTOR_SIZE && si>0)
+	if (si < 0)
+	{
+		throw "ERROR";
+	}
+	if (s > 0 && s <= MAX_VECTOR_SIZE)
 	{
 		Size = s;
 		StartIndex = si;
 		pVector = new ValType[Size];
-		for (int i = 0; i < Size; i++)
+		for (int i = 0; i < s; i++)
 			pVector[i] = 0;
 	}
 	else
-		throw("ERROR");
+		throw "ERROR";
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> //конструктор копирования
@@ -93,10 +97,9 @@ TVector<ValType>::~TVector()
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-	if (pos <= Size)
-	{
+	pos -= StartIndex;
+	if (pos <= Size && pos>=0)
 		return pVector[pos];
-	}
 	else
 		throw("ERROR");
 } /*-------------------------------------------------------------------------*/
@@ -104,7 +107,7 @@ ValType& TVector<ValType>::operator[](int pos)
 template <class ValType> // сравнение
 bool TVector<ValType>::operator==(const TVector &v) const
 {
-	if (Size == v.Size && StartIndex == v.StartIndex)
+	if (Size == v.Size)
 	{
 		for (int i = 0; i < Size;)
 		{
@@ -121,7 +124,7 @@ bool TVector<ValType>::operator==(const TVector &v) const
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
 {
-	if (Size != v.Size || StartIndex != v.StartIndex)
+	if (Size != v.Size)
 	{
 		for (int i = 0; i < Size;)
 		{
@@ -138,9 +141,9 @@ bool TVector<ValType>::operator!=(const TVector &v) const
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
+	delete[] pVector;
 	Size = v.Size;
 	StartIndex = v.StartIndex;
-	delete[] pVector;
 	for (int i = 0; i < Size; i++)
 		pVector[i] = v.pVector[i];
 	return *this;
@@ -245,17 +248,17 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
-	if (s > 0 && s <= MAX_MATRIX_SIZE)
+	if (s > MAX_MATRIX_SIZE || s <= 0)
+		throw "ERROR";
+	else
 	{
 		Size = s;
 		for (int i = 0; i < s; i++)
 		{
-			TVector <ValType> tmp(s, i);
+			TVector<ValType> tmp(s, i);
 			pVector[i] = tmp;
 		}
 	}
-	else
-		throw "ERROR";
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // конструктор копирования
