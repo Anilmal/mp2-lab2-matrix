@@ -102,6 +102,7 @@ c:\progs\mp2-lab2-matrix\gtest\gtest.h(10020): warning C4996: 'std::tr1': warnin
               T=std::tuple<>
           ]
   Создание кода...
+c:\progs\mp2-lab2-matrix\include\utmatrix.h(136): warning C4715: TVector<int>::operator!=: значение возвращается не при всех путях выполнения
   Компиляция...
   test_tvector.cpp
 c:\progs\mp2-lab2-matrix\gtest\gtest.h(9690): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning.
@@ -206,5 +207,7 @@ c:\progs\mp2-lab2-matrix\gtest\gtest.h(10020): warning C4996: 'std::tr1': warnin
               T=std::tuple<>
           ]
   Создание кода...
+c:\progs\mp2-lab2-matrix\include\utmatrix.h(119): warning C4715: TVector<int>::operator==: значение возвращается не при всех путях выполнения
+c:\progs\mp2-lab2-matrix\include\utmatrix.h(136): warning C4715: TVector<int>::operator!=: значение возвращается не при всех путях выполнения
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: промежуточный каталог (Debug\) содержит файлы, которые используются совместно с другим проектом (test_utmatrix.vcxproj).  Это может привести к ошибкам очистки и перестроения.
   test_utmatrix.vcxproj -> C:\Progs\mp2-lab2-matrix\sln\vc10\Debug\test_utmatrix.exe
