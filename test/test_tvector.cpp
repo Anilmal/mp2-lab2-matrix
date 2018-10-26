@@ -160,7 +160,7 @@ TEST(TVector, can_add_vectors_with_equal_size)
 TEST(TVector, cant_add_vectors_with_not_equal_size)
 {
 	TVector<int> v1(6);
-	TVector<int> v2(6);
+	TVector<int> v2(8);
 
 	ASSERT_ANY_THROW(v1 + v2);
 }
