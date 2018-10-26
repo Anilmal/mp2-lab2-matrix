@@ -176,7 +176,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
-	if (Size = v.Size)
+	if (Size == v.Size)
 	{
 		TVector<ValType> tmp(Size);
 		for (int i = 0; i < Size; i++)
@@ -190,7 +190,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
-	if (Size = v.Size)
+	if (Size == v.Size)
 	{
 		TVector<ValType> tmp(Size);
 		for (int i = 0; i < Size; i++)
@@ -204,12 +204,16 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
-	ValType tmp = 0;
-	for (int i = 0; i < Size; i++)
-		tmp += pVector[i] * v.pVector[i];
-	return tmp;
+	
 	if (Size != v.Size)
 		throw "ERROR";
+	else
+	{
+		ValType tmp = 0;
+		for (int i = 0; i < Size; i++)
+			tmp += pVector[i] * v.pVector[i];
+		return tmp;
+	}
 } /*-------------------------------------------------------------------------*/
 
 
