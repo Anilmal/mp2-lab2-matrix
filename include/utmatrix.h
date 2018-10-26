@@ -160,7 +160,7 @@ TVector<ValType> TVector<ValType>::operator-(const ValType &val)
 {
 	TVector<ValType> tmp(*this);
 	for (int i = 0; i < Size; i++)
-		pVector[i] -= val;
+		tmp.pVector[i] -= val;
 	return tmp;
 } /*-------------------------------------------------------------------------*/
 
