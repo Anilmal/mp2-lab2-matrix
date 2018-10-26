@@ -70,7 +70,7 @@ TVector<ValType>::TVector(int s, int si)
 	{
 		Size = s;
 		StartIndex = si;
-		pVector = new ValType[Size];
+		pVector = new ValType[s];
 		for (int i = 0; i < s; i++)
 			pVector[i] = 0;
 	}
@@ -109,13 +109,12 @@ bool TVector<ValType>::operator==(const TVector &v) const
 {
 	if (Size == v.Size)
 	{
-		for (int i = 0; i < Size;)
+		for (int i = 0; i < Size;i++)
 		{
-			if (pVector[i] = v.pVector[i])
-				i++;
-			else
+			if (pVector[i] != v.pVector[i])
 				return false;
 		}
+		return true;
 	}
 	else
 		return false;
@@ -124,24 +123,22 @@ bool TVector<ValType>::operator==(const TVector &v) const
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
 {
-	if (Size != v.Size)
+	if (Size == v.Size)
 	{
-		for (int i = 0; i < Size;)
+		for (int i = 0; i < Size;i++)
 		{
 			if (pVector != v.pVector)
 				return true;
-			else
-				i++;
 		}
+		return false;
 	}
 	else
-		return false;
+		return true;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
-	delete[] pVector;
 	Size = v.Size;
 	StartIndex = v.StartIndex;
 	for (int i = 0; i < Size; i++)
@@ -248,16 +245,12 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
-	if (s > MAX_MATRIX_SIZE || s <= 0)
+	if (s<0 || s>MAX_MATRIX_SIZE)
 		throw "ERROR";
-	else
+	for (int i = 0; i <= s; i++)
 	{
-		Size = s;
-		for (int i = 0; i < s; i++)
-		{
-			TVector<ValType> tmp(s, i);
-			pVector[i] = tmp;
-		}
+		TVector<ValType> tmp(s, i);
+		pVector[i] = tmp;
 	}
 } /*-------------------------------------------------------------------------*/
 
