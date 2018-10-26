@@ -68,7 +68,7 @@ TVector<ValType>::TVector(int s, int si)
 	}
 	if (s > 0 && s <= MAX_VECTOR_SIZE)
 	{
-		Size = s;
+		Size = s-si;
 		StartIndex = si;
 		pVector = new ValType[s];
 		for (int i = 0; i < s; i++)
@@ -101,7 +101,7 @@ ValType& TVector<ValType>::operator[](int pos)
 	if (pos <= Size && pos>=0)
 		return pVector[pos];
 	else
-		throw("ERROR");
+		throw "ERROR";
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
@@ -139,6 +139,7 @@ bool TVector<ValType>::operator!=(const TVector &v) const
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
+	delete[] pVector;
 	Size = v.Size;
 	StartIndex = v.StartIndex;
 	for (int i = 0; i < Size; i++)
@@ -184,7 +185,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 		return tmp;
 	}
 	else
-		throw("ERROR");
+		throw "ERROR";
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // вычитание
@@ -198,7 +199,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 		return tmp;
 	}
 	else
-		throw("ERROR");
+		throw "ERROR";
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // скалярное произведение
