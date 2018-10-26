@@ -72,7 +72,7 @@ TVector<ValType>::TVector(int s, int si)
 		StartIndex = si;
 		pVector = new ValType[s];
 		for (int i = 0; i < s; i++)
-			pVector[i] = 0;
+			pVector[i] = { };
 	}
 	else
 		throw "ERROR";
@@ -249,13 +249,13 @@ public:
 };
 
 template <class ValType>
-TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
+TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType>>(s)
 {
-	if (s<0 || s>MAX_MATRIX_SIZE)
+	if (s < 0 || s > MAX_MATRIX_SIZE)
 		throw "ERROR";
-	for (int i = 0; i <= s; i++)
+	for (int i = 0; i < s; i++)
 	{
-		TVector<ValType> tmp(s, i);
+		TVector<ValType>tmp(s, i);
 		pVector[i] = tmp;
 	}
 } /*-------------------------------------------------------------------------*/
@@ -265,10 +265,12 @@ TMatrix<ValType>::TMatrix(const TMatrix<ValType> &mt):
   TVector<TVector<ValType> >(mt)
 {
 	Size = mt.Size;
-	pVector = new TVector<ValType>[Size];
 	StartIndex = mt.StartIndex;
-	for (int i = 0; i < Size; i++)
+	pVector = new TVector<ValType>[mt.Size];
+	for (int i = 0; i < mt.Size; i++)
+	{
 		pVector[i] = mt.pVector[i];
+	}
 }
 
 template <class ValType> // конструктор преобразования типа
@@ -281,33 +283,27 @@ TMatrix<ValType>::TMatrix(const TVector<TVector<ValType> > &mt):
 template <class ValType> // сравнение
 bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 {
-	if (Size == mt.Size)
-	{
-		for (int i = 0; i < Size;i++)
-		{
-			if (pVector[i] != mt.pVector[i])
-				return false;
-		}
-		return true;
-	}
-	else 
+	if (Size != mt.Size)
 		return false;
+	for (int i = 0; i < Size; i++)
+	{
+		if (mt.pVector[i] != pVector[i])
+			return false;
+	}
+	return true;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
 bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 {
-	if (Size == mt.Size)
-	{
-		for (int i = 0; i < Size; i++)
-		{
-			if (pVector[i] != mt.pVector[i])
-				return true;
-		}
-		return false;
-	}
-	else 
+	if (Size != mt.Size)
 		return true;
+	for (int i = 0; i < Size; i++)
+	{
+		if (mt.pVector[i] != pVector[i])
+			return true;
+	}
+	return false;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
