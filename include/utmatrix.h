@@ -142,6 +142,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 	delete[] pVector;
 	Size = v.Size;
 	StartIndex = v.StartIndex;
+	pVector = new ValType[Size];
 	for (int i = 0; i < Size; i++)
 		pVector[i] = v.pVector[i];
 	return *this;
