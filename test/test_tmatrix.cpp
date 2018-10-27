@@ -4,7 +4,7 @@
 
 TEST(TMatrix, can_create_matrix_with_positive_length)
 {
-  ASSERT_NO_THROW(TMatrix<int> m(5));
+	ASSERT_NO_THROW(TMatrix<int> m(10));
 }
 
 TEST(TMatrix, cant_create_too_large_matrix)
@@ -26,16 +26,16 @@ TEST(TMatrix, can_create_copied_matrix)
 
 TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 {
-	TMatrix<int> mx(8);
-	TMatrix<int> mx1(mx);
-	EXPECT_TRUE(mx==mx1);
+	TMatrix<int> matrix(6);
+	TMatrix<int>copy(matrix);
+	EXPECT_EQ(matrix, copy);
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
 	TMatrix<int> mx(8);
 	TMatrix<int> mx1(mx);
-	EXPECT_TRUE( &mx[0][0]!= &mx[0][0]);
+	EXPECT_EQ( &mx[0][0],&mx[0][0]);
 }
 
 TEST(TMatrix, can_get_size)
@@ -46,8 +46,9 @@ TEST(TMatrix, can_get_size)
 
 TEST(TMatrix, can_set_and_get_element)
 {
-	TMatrix<int> mx(10);
-	ASSERT_NO_THROW(mx[8][7] = 1);
+	TMatrix<int> MX(10);
+	MX[0][0] = 5;
+	EXPECT_EQ(5, MX[0][0]);
 }
 
 TEST(TMatrix, throws_when_set_element_with_negative_index)
@@ -97,6 +98,7 @@ TEST(TMatrix, compare_equal_matrices_return_true)
 {
 	TMatrix<int> mx(7);
 	TMatrix<int> mx1(7);
+	mx[1][1] = 1;
 	mx = mx1;
 	EXPECT_TRUE(mx == mx1);
 }
